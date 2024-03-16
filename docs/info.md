@@ -9,12 +9,12 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works
+A digital dice that uses LFSR to roll a pseudo-random number. There are two modes: 6 and 20, in 20 mode it rolls from 1-20. 
 
 ## How to test
 
-Explain how to use your project
+pin "trigger" to roll the dice. Results should come out random
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+Potencially leds and 7 segment displays
