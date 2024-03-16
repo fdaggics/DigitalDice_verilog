@@ -5,20 +5,39 @@
 
 `define default_netname none
 
-module tt_um_example (
-    input  wire [7:0] ui_in,    // Dedicated inputs
-    output wire [7:0] uo_out,   // Dedicated outputs
-    input  wire [7:0] uio_in,   // IOs: Input path
-    output wire [7:0] uio_out,  // IOs: Output path
-    output wire [7:0] uio_oe,   // IOs: Enable path (active high: 0=input, 1=output)
-    input  wire       ena,      // will go high when the design is enabled
-    input  wire       clk,      // clock
-    input  wire       rst_n     // reset_n - low to reset
+module tt_um_example(
+  input trigger,
+  input twty_mode,
+  output reg D4,
+  output reg D5,
+  output reg D6,
+  output reg D7,
+  output reg D8
 );
 
-  // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
-  assign uio_out = 0;
-  assign uio_oe  = 0;
+reg [10:0] lfsr_reg = 11'd18; //seed
+reg [4:0] dice_value = 5'b0;
+
+
+always @(posedge trigger) begin
+  lfsr_reg <= {lfsr_reg[9:0], lfsr_reg[10] ^ lfsr_reg[1]};
+  if(!twty_mode) begin
+    dice_value <= (lfsr_reg[2:0] % 6) + 1;
+  end
+  if(twty_mode) begin
+    dice_value <= (lfsr_reg[4:0] % 20) + 1;  
+  end
+end
+
+always @* begin
+  D4 = dice_value[0];
+  D5 = dice_value[1];
+  D6 = dice_value[2];
+  if(twty_mode) begin
+    D7 = dice_value[3];
+    D8 = dice_value[4];
+  end
+end
 
 endmodule
+
