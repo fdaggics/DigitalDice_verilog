@@ -20,9 +20,9 @@ project:
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 pinout:
   # Inputs
-  ui[0]: "trigger"
-  ui[1]: "twty_mode"
-  ui[2]: ""
+  ui[0]: "clk"
+  ui[1]: "trigger"
+  ui[2]: "twty_mode"
   ui[3]: ""
   ui[4]: ""
   ui[5]: ""

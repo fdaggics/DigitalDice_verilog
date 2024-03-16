@@ -6,6 +6,7 @@
 `define default_netname none
 
 module tt_um_example(
+  input clk,
   input trigger,
   input twty_mode,
   output reg D4,
